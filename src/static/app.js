@@ -897,18 +897,25 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Social sharing functions
+  // Constants for social sharing
+  const SHARE_POPUP_OPTIONS = 'width=600,height=400';
+  
+  function createShareMessage(activityName, description) {
+    return `Check out ${activityName} at Mergington High School! ${description}`;
+  }
+  
   function shareOnFacebook(activityName, description) {
     const url = encodeURIComponent(window.location.href);
-    const quote = encodeURIComponent(`Check out ${activityName} at Mergington High School! ${description}`);
+    const quote = encodeURIComponent(createShareMessage(activityName, description));
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${quote}`;
-    window.open(facebookUrl, '_blank', 'width=600,height=400');
+    window.open(facebookUrl, '_blank', SHARE_POPUP_OPTIONS);
   }
 
   function shareOnTwitter(activityName, description) {
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent(`Check out ${activityName} at Mergington High School! ${description}`);
+    const text = encodeURIComponent(createShareMessage(activityName, description));
     const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-    window.open(twitterUrl, '_blank', 'width=600,height=400');
+    window.open(twitterUrl, '_blank', SHARE_POPUP_OPTIONS);
   }
 
   function shareViaEmail(activityName, description, schedule) {
