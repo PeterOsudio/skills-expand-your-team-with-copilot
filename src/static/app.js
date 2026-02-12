@@ -554,13 +554,13 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="social-sharing">
         <span class="share-label">Share:</span>
-        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share on Facebook">
+        <button class="share-button facebook-share" title="Share on Facebook">
           📘
         </button>
-        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" title="Share on Twitter">
+        <button class="share-button twitter-share" title="Share on Twitter">
           🐦
         </button>
-        <button class="share-button email-share" data-activity="${name}" data-description="${details.description.replace(/"/g, '&quot;')}" data-schedule="${formattedSchedule.replace(/"/g, '&quot;')}" title="Share via Email">
+        <button class="share-button email-share" title="Share via Email">
           ✉️
         </button>
       </div>
@@ -916,7 +916,11 @@ document.addEventListener("DOMContentLoaded", () => {
       `Best regards`
     );
     const mailtoUrl = `mailto:?subject=${subject}&body=${body}`;
-    window.location.href = mailtoUrl;
+    
+    // Create a temporary anchor element to trigger mailto
+    const anchor = document.createElement('a');
+    anchor.href = mailtoUrl;
+    anchor.click();
   }
 
   // Initialize app
