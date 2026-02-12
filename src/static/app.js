@@ -604,17 +604,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const twitterButton = activityCard.querySelector(".twitter-share");
     const emailButton = activityCard.querySelector(".email-share");
 
-    facebookButton.addEventListener("click", () => {
-      shareOnFacebook(name, details.description);
-    });
+    if (facebookButton) {
+      facebookButton.addEventListener("click", () => {
+        shareOnFacebook(name, details.description);
+      });
+    }
 
-    twitterButton.addEventListener("click", () => {
-      shareOnTwitter(name, details.description);
-    });
+    if (twitterButton) {
+      twitterButton.addEventListener("click", () => {
+        shareOnTwitter(name, details.description);
+      });
+    }
 
-    emailButton.addEventListener("click", () => {
-      shareViaEmail(name, details.description, formattedSchedule);
-    });
+    if (emailButton) {
+      emailButton.addEventListener("click", () => {
+        shareViaEmail(name, details.description, formattedSchedule);
+      });
+    }
 
     activitiesList.appendChild(activityCard);
   }
@@ -916,11 +922,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `Best regards`
     );
     const mailtoUrl = `mailto:?subject=${subject}&body=${body}`;
-    
-    // Create a temporary anchor element to trigger mailto
-    const anchor = document.createElement('a');
-    anchor.href = mailtoUrl;
-    anchor.click();
+    window.location.href = mailtoUrl;
   }
 
   // Initialize app
