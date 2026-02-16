@@ -54,9 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedTheme === "dark") {
       document.body.classList.add("dark-mode");
       themeIcon.textContent = "☀️";
+      themeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
       document.body.classList.remove("dark-mode");
       themeIcon.textContent = "🌙";
+      themeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
   }
 
@@ -67,9 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isDark) {
       themeIcon.textContent = "☀️";
       localStorage.setItem("theme", "dark");
+      themeToggle.setAttribute("aria-label", "Switch to light mode");
     } else {
       themeIcon.textContent = "🌙";
       localStorage.setItem("theme", "light");
+      themeToggle.setAttribute("aria-label", "Switch to dark mode");
     }
   }
 
