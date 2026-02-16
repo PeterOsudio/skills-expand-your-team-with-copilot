@@ -552,6 +552,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="social-sharing">
+        <span class="share-label">Share:</span>
+        <button class="share-button facebook-share" title="Share on Facebook">
+          📘
+        </button>
+        <button class="share-button twitter-share" title="Share on Twitter">
+          🐦
+        </button>
+        <button class="share-button email-share" title="Share via Email">
+          ✉️
+        </button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -585,6 +597,29 @@ document.addEventListener("DOMContentLoaded", () => {
           openRegistrationModal(name);
         });
       }
+    }
+
+    // Add event listeners for social sharing buttons
+    const facebookButton = activityCard.querySelector(".facebook-share");
+    const twitterButton = activityCard.querySelector(".twitter-share");
+    const emailButton = activityCard.querySelector(".email-share");
+
+    if (facebookButton) {
+      facebookButton.addEventListener("click", () => {
+        shareOnFacebook(name, details.description);
+      });
+    }
+
+    if (twitterButton) {
+      twitterButton.addEventListener("click", () => {
+        shareOnTwitter(name, details.description);
+      });
+    }
+
+    if (emailButton) {
+      emailButton.addEventListener("click", () => {
+        shareViaEmail(name, details.description, formattedSchedule);
+      });
     }
 
     activitiesList.appendChild(activityCard);
@@ -860,6 +895,42 @@ document.addEventListener("DOMContentLoaded", () => {
     setDayFilter,
     setTimeRangeFilter,
   };
+
+  // Social sharing functions
+  // Constants for social sharing
+  const SHARE_POPUP_OPTIONS = 'width=600,height=400';
+  
+  function createShareMessage(activityName, description) {
+    return `Check out ${activityName} at Mergington High School! ${description}`;
+  }
+  
+  function shareOnFacebook(activityName, description) {
+    const url = encodeURIComponent(window.location.href);
+    const quote = encodeURIComponent(createShareMessage(activityName, description));
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${quote}`;
+    window.open(facebookUrl, '_blank', SHARE_POPUP_OPTIONS);
+  }
+
+  function shareOnTwitter(activityName, description) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(createShareMessage(activityName, description));
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    window.open(twitterUrl, '_blank', SHARE_POPUP_OPTIONS);
+  }
+
+  function shareViaEmail(activityName, description, schedule) {
+    const subject = encodeURIComponent(`Join ${activityName} at Mergington High School`);
+    const body = encodeURIComponent(
+      `Hi!\n\nI thought you might be interested in this activity at Mergington High School:\n\n` +
+      `Activity: ${activityName}\n` +
+      `Description: ${description}\n` +
+      `Schedule: ${schedule}\n\n` +
+      `Visit ${window.location.href} to learn more and sign up!\n\n` +
+      `Best regards`
+    );
+    const mailtoUrl = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = mailtoUrl;
+  }
 
   // Initialize app
   checkAuthentication();
